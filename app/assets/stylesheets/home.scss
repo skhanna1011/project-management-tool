@@ -5,18 +5,18 @@
   font-family: cursive;
 }
 .landing {
-  font-size: 38px;
+  font-size: 37px;
   font-family: Lato;
   text-align: center;
-  padding: 55px;
+  padding: 60px;
 }
 .banner {
   background: image-url('banner.jpg');
   background-size: 100%;
-  margin-left: 12%;
-  margin-top: 25px;
-  width: 900px;
-  height: 250px;
+  background-repeat: no-repeat;
+  margin:16%;
+  margin-top: 55px;
+  height: 300px;
   border-radius: 10px;
   box-shadow: 3px 2px 10px 2px black;
 }
