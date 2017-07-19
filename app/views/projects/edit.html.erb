@@ -1,0 +1,12 @@
+<div class='outer-box'>
+  <div class ="item">
+    <h2> Edit project submission </h2>
+  </div>
+
+  <%= render 'project' %>
+  <br/>
+  <div class="action">
+    <%= link_to 'Show', @project, class: 'btn btn-primary btn-sm', type: 'button' %>
+    <%= link_to 'Back', project_demos_latest_path, class: 'btn btn-primary btn-sm', type: 'button' %>
+  </div>
+</div>

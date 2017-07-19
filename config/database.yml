@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: project
+  pool: 5
+
+development:
+  <<: *default
+  database: project_development
+
+test:
+  <<: *default
+  database: project_test
+
+production:
+  <<: *default
+  database: project_production
+  password: <%= ENV['DEMOCRARY_DATABASE_PASSWORD'] %>

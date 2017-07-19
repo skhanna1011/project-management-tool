@@ -1,0 +1,41 @@
+<% if flash[:success] %>
+  <div class="alert alert-success" role="alert">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+<div class='outer-box'>
+<div class ="item">
+  <p>
+  <strong>Name:</strong>
+  <%= @project_demo.name %>
+  </p>
+
+  <p>
+  <strong>Description:</strong>
+  <%= @project_demo.description %>
+  </p>
+
+  <p>
+  <strong>Scheduled at:</strong>
+  <%= @project_demo.demo_at.strftime("%B %d, %Y, %H:%M") %>
+  </p>
+
+  <strong>Project submission from:</strong>
+  <%= @project_demo.window_opens_at.strftime("%B %d, %Y, %H:%M") %>
+  </p>
+
+  <strong>Project submission till:</strong>
+  <%= @project_demo.window_closes_at.strftime("%B %d, %Y, %H:%M") %>
+  </p>
+
+  <strong>Status:</strong>
+  <%= @project_demo.status %>
+  </p>
+</div>
+
+<div class="action">
+  <%= link_to 'Edit', edit_project_demo_path(@project_demo), class: 'btn btn-primary btn-sm', type: 'button' %>
+  <%= link_to 'Delete', project_demo_path, class: 'btn btn-primary btn-sm', method: :delete, type: 'button' %>
+  <%= link_to 'Back', root_path, class: 'btn btn-primary btn-sm', type: 'button' %>
+</div>
+</div>

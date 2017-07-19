@@ -1,0 +1,29 @@
+<% if flash[:info] %>
+  <div class="alert alert-info" role="alert">
+    <%= flash[:info] %>
+  </div>
+<% end %>
+
+<% project_demo_available = ProjectDemo.where('demo_at > ?', Time.now).blank? ? false : true %>
+<% project_demo = ProjectDemo.last %>
+<% if project_demo %>
+  <% project_demo_date = project_demo.demo_at.strftime("%B %d, %Y") %>
+  <% project_demo_time = project_demo.demo_at.strftime("%H:%M") %>
+<% end %>
+
+<div class="banner">
+  <% if current_user %>
+    <div class="landing">Upcoming Project demo! 
+    <% if project_demo_available %>
+      <h3><span class="label label-info"><%= project_demo_date %></span> <span class="label label-info"><%= project_demo_time %></span></h3>
+      <span><%= link_to 'Check now', project_demos_latest_path, class: 'btn btn-primary btn-lg', type: 'button' %></span>
+      <span><%= link_to 'Update Project demo schedule', edit_project_demo_path(project_demo.id), class: 'btn btn-primary btn-lg', type: 'button' %></span>
+    <% else %>
+      <h3><span class="label label-info">Not yet scheduled</span></h3><br/>
+      <div class="banner-button"><%= link_to 'Create a new Project demo event', new_project_demo_path, class: 'btn btn-primary btn-lg', type: 'button' %></div>
+    <% end %>
+    </div>
+  <% else %>
+  <div class="landing"> Project submissions management and presentation scheduling tool</div>
+  <% end %>
+</div>

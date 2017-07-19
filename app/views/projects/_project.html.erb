@@ -1,0 +1,28 @@
+<%= form_for(@project) do |f| %>
+  <% if @project.errors.any? %>
+    <div class="alert alert-danger">
+      <strong>Error saving project! Please submit again.</strong>
+      <ul>
+      <% @project.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="item">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, required: true, :size => 50 %>
+  </div>
+  <div class="item">
+    <%= f.label :source_url %><br>
+    <%= f.url_field :source_url, required: true, :size => 50 %>
+  </div>
+  <div class="item">
+    <%= f.label :description %><br>
+    <%= f.text_area :description, :cols => "49", :rows => 3 %>
+  </div>
+  <br/>
+  <div class="action">
+    <%= f.submit %>
+  </div>
+<% end %>

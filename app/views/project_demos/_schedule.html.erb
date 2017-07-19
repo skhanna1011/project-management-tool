@@ -1,0 +1,35 @@
+<%= form_for(@project_demo) do |f| %>
+  <% if @project_demo.errors.any? %>
+    <div class="alert alert-danger">
+      <strong>Error saving the project demo schedule!</strong>
+      <ul>
+      <% @project_demo.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="item">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, required: true, :size => 50 %>
+  </div>
+  <br/>
+  <div class="item">
+    <%= f.label :description %><br>
+    <%= f.text_area :description, :cols => "49", :rows => 3 %>
+  </div>
+  <div class="item">
+    <%= f.label :scheduled_at %><br>
+    <%= f.datetime_select :demo_at, required: true, prompt: { day: 'day', month: 'month', year: 'year', hour: 'hour', minute: 'min' } %><br><br>
+  </div>
+  <div class="item">
+    <%= f.label :project_submissions_till %><br>
+    <%= f.datetime_select :window_closes_at, required: true, prompt: { day: 'day', month: 'month', year: 'year', hour: 'hour', minute: 'min' } %>
+  </div>
+
+
+  <br/>
+  <div class="action">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,74 @@
+<% projects_available = @project_demo.projects.count ? false : true %>
+<% projects = @project_demo.projects %>
+<% user_project = Project.find_by(user_id: current_user.id, project_demo_id: @project_demo.id) %>
+<% project_submitted = user_project.blank? ? false : true %>
+
+<div class="container">
+  <br/>
+  <span class="pull-right">
+  <% if project_submitted %>
+    <%= link_to 'Show Submission', project_path(user_project.id), class: 'btn btn-success', type: 'button' %>
+  <% else %>
+    <%= link_to 'New Submission', new_project_path(project_demo_id: @project_demo.id), class: 'btn btn-success', type: 'button' %>
+  <% end %>
+  </span>
+  <% if flash[:info] %>
+    <div class="alert alert-info" role="alert">
+      <%= flash[:info] %>
+    </div>
+  <% end %>
+  <% if true %>
+    <h2>Projects submitted till now</h2>
+    <table class="table table-hover table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Source</th>
+          <th>Link</th>
+          <th>Suggested by</th>
+          <th>Votes</th>
+          <th><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></th>
+          <th><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></th>
+          <th><span class="glyphicon glyphicon-pencil" aria-hidden="true"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% projects.each do |project| %>
+          <% user_name = User.find(project.user_id).name %>
+          <% can_vote = Vote.find_by(user_id: current_user.id, project_id: project.id).blank? ? true : false %>
+          <% total_count = project.votes.map{|item| item.upvote_count - item.downvote_count}.sum %>
+          <tr>
+            <td><%= project.name %></td>
+            <td><%= project.description %></td>
+            <td><%= project.source_url %></td>
+            <td><%= link_to 'View', project.source_url, class: 'btn btn-info btn-xs', target: "_blank", type: 'button' %></td>
+            <td><%= user_name %></td>
+            <td><%= total_count %></td>
+            <%if can_vote %>
+             <td><%= link_to 'Upvote', create_vote_path(type: 'upvote', project_id: project.id), class: 'btn btn-primary btn-xs', method: :post %></td>
+              <td><%= link_to 'Downvote', create_vote_path(type: 'downvote', project_id: project.id), class: 'btn btn-primary btn-xs', method: :post %></td>
+              <td> <button type="button" class="btn btn-primary btn-xs" disabled="disabled">Delete vote</button> </td>
+            <% else %>
+              <td> <button type="button" class="btn btn-primary btn-xs" disabled="disabled">Voted</button> </td>
+              <td> <button type="button" class="btn btn-primary btn-xs" disabled="disabled">Voted</button> </td>
+              <td><%= link_to 'Delete vote', delete_vote_path(project_id: project.id), class: 'btn btn-primary btn-xs', method: :delete %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+  <% end %>
+</div>
+
+<style>
+.container{
+  background: #E4E4E7;
+  height: 450px;
+}
+tbody {
+    height: 50px;
+    overflow: scroll;
+  }
+</style>
